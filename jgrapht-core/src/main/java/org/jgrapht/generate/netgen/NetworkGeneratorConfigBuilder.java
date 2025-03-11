@@ -171,17 +171,15 @@ public class NetworkGeneratorConfigBuilder
      * {@code sinkNum} are set to 1 and the value of the {@code percentCapacitated} is set to 100.
      *
      * @param nodeNum number of nodes in the network
-     * @param arcNum number of arcs in the network
-     * @param supply total supply of the network
-     * @param minCap arc capacity lower bound
-     * @param maxCap arc capacity upper bound
-     * @return this object
+     * @param arcNum  number of arcs in the network
+     * @param supply  total supply of the network
+     * @param minCap  arc capacity lower bound
+     * @param maxCap  arc capacity upper bound
      */
-    public NetworkGeneratorConfigBuilder setMaximumFlowProblemParams(
+    public void setMaximumFlowProblemParams(
         int nodeNum, int arcNum, int supply, int minCap, int maxCap)
     {
         setMaximumFlowProblemParams(nodeNum, arcNum, supply, minCap, maxCap, 1, 1);
-        return this;
     }
 
     /**
@@ -208,24 +206,22 @@ public class NetworkGeneratorConfigBuilder
     /**
      * Sets maximum flow network parameter subset.
      *
-     * @param nodeNum number of nodes in the network
-     * @param arcNum number of arcs in the network
-     * @param supply total supply of the network
-     * @param minCap arc capacity lower bound
-     * @param maxCap arc capacity upper bound
-     * @param sourceNum number of source in the network
-     * @param sinkNum number of sinks in the network
+     * @param nodeNum            number of nodes in the network
+     * @param arcNum             number of arcs in the network
+     * @param supply             total supply of the network
+     * @param minCap             arc capacity lower bound
+     * @param maxCap             arc capacity upper bound
+     * @param sourceNum          number of source in the network
+     * @param sinkNum            number of sinks in the network
      * @param percentCapacitated percent of arcs to have finite capacity
-     * @return this object
      */
-    public NetworkGeneratorConfigBuilder setMaximumFlowProblemParams(
+    public void setMaximumFlowProblemParams(
         int nodeNum, int arcNum, int supply, int minCap, int maxCap, int sourceNum, int sinkNum,
         int percentCapacitated)
     {
         setParams(
             nodeNum, arcNum, sourceNum, sinkNum, 0, 0, supply, minCap, maxCap, 1, 1,
             percentCapacitated, 0);
-        return this;
     }
 
     /**
@@ -248,14 +244,13 @@ public class NetworkGeneratorConfigBuilder
     /**
      * Sets bipartite matching parameter subset.
      *
-     * @param nodeNum number of nodes in the network
-     * @param arcNum number of arcs in the network
-     * @param minCost arc cost lower bound
-     * @param maxCost arc cost upper bound
+     * @param nodeNum            number of nodes in the network
+     * @param arcNum             number of arcs in the network
+     * @param minCost            arc cost lower bound
+     * @param maxCost            arc cost upper bound
      * @param percentWithInfCost percent of arcs to have infinite cost
-     * @return this object
      */
-    public NetworkGeneratorConfigBuilder setBipartiteMatchingProblemParams(
+    public void setBipartiteMatchingProblemParams(
         int nodeNum, int arcNum, int minCost, int maxCost, int percentWithInfCost)
     {
         if ((nodeNum & 1) != 0) {
@@ -264,7 +259,6 @@ public class NetworkGeneratorConfigBuilder
         setParams(
             nodeNum, arcNum, nodeNum / 2, nodeNum / 2, 0, 0, nodeNum / 2, 1, 1, minCost, maxCost,
             100, percentWithInfCost);
-        return this;
     }
 
     /**
