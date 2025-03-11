@@ -51,32 +51,8 @@ public class NetworkGeneratorConfigBuilder
      */
     public NetworkGeneratorConfig build()
     {
-        if (nodeNum <= 0) {
-            invalidParam("Number of nodes must be positive");
-        } else if (arcNum <= 0) {
-            invalidParam("Number of arcs must be positive");
-        } else if (sourceNum <= 0) {
-            invalidParam("Number of sources must be positive");
-        } else if (sinkNum <= 0) {
-            invalidParam("Number of sinks must be positive");
-        } else if (sourceNum + sinkNum > nodeNum) {
-            invalidParam("Number of sources and sinks must not exceed the number of nodes");
-        } else if (tSourceNum > sourceNum) {
-            invalidParam(
-                "Number of transhipment sources must not exceed the overall number of sources");
-        } else if (tSinkNum > sinkNum) {
-            invalidParam(
-                "Number of transhipment sinks must not exceed the overall number of sinks");
-        } else if (totalSupply < Math.max(sourceNum, sinkNum)) {
-            invalidParam(
-                "Total supply must not be less than the number of sources and the number of sinks");
-        } else if (minCap > maxCap) {
-            invalidParam("Minimum capacity must not exceed the maximum capacity");
-        } else if (minCap <= 0) {
-            invalidParam("Minimum capacity must be positive");
-        } else if (minCost > maxCost) {
-            invalidParam("Minimum cost must not exceed the maximum cost");
-        }
+        NetworkGeneratorConfigBuilderValidator.validateAll(this);
+
         int tNodeNum = nodeNum - sourceNum - sinkNum;
         long minArcNum = NetworkGeneratorConfig.getMinimumArcNum(sourceNum, tNodeNum, sinkNum);
         long maxArcNum = NetworkGeneratorConfig
