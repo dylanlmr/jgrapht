@@ -229,20 +229,6 @@ public class NetworkGeneratorConfigBuilder
     }
 
     /**
-     * Sets bipartite matching parameter subset. The values of the {@code minCost} and
-     * {@code maxCost} are set to 1, the value of the {@code percentWithInfCost} is set to 0.
-     *
-     * @param nodeNum number of nodes in the network
-     * @param arcNum number of arcs in the network
-     * @return this object
-     */
-    public NetworkGeneratorConfigBuilder setBipartiteMatchingProblemParams(int nodeNum, int arcNum)
-    {
-        setBipartiteMatchingProblemParams(nodeNum, arcNum, 1, 1);
-        return this;
-    }
-
-    /**
      * Sets bipartite matching parameter subset. The value of the {@code percentWithInfCost} is set
      * to 0.
      *
