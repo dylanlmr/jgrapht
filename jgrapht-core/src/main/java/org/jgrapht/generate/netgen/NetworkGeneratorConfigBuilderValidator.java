@@ -71,4 +71,8 @@ public class NetworkGeneratorConfigBuilderValidator {
    private static void invalidParam(String message) {
       throw new IllegalArgumentException(message);
    }
+
+   public static void validateAll(NetworkGeneratorConfigBuilder builder) {
+      VALIDATIONS.forEach(validation -> validation.validate(builder));
+   }
 }
