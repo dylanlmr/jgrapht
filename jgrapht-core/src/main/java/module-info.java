@@ -18,7 +18,7 @@
 
 /**
  * Defines the core APIs of the JGraphT library.
- * 
+ *
  * @since 1.5.0
  */
 module org.jgrapht.core
@@ -64,6 +64,7 @@ module org.jgrapht.core
     exports org.jgrapht.graph.specifics;
     exports org.jgrapht.traverse;
     exports org.jgrapht.util;
+    exports org.jgrapht.generate.netgen.problem;
 
     requires transitive org.jheaps;
     requires transitive org.apfloat;
