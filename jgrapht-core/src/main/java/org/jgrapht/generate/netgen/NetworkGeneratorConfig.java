@@ -17,6 +17,9 @@
  */
 package org.jgrapht.generate.netgen;
 
+import org.jgrapht.generate.netgen.problem.BipartiteMatchingProblem;
+import org.jgrapht.generate.netgen.problem.MaximumFlowProblem;
+
 /**
  * Configuration class to specify network parameters for the {@link NetworkGenerator}. Any valid
  * configuration specifies a minimum cost flow network to generate. Under additional constraints the
@@ -267,7 +270,7 @@ public class NetworkGeneratorConfig
     public long getMaxTSink2SinkArcNum()
     {
         return (long) transshipSinkNum * (transshipSinkNum - 1)
-            + getPureSinkNum() * transshipSinkNum;
+            + (long) getPureSinkNum() * transshipSinkNum;
     }
 
     /**
@@ -412,36 +415,6 @@ public class NetworkGeneratorConfig
     public int getTransshipNodeNum()
     {
         return nodeNum - sourceNum - sinkNum;
-    }
-
-    /**
-     * Checks if the network satisfies the transportation problem conditions.
-     * <p>
-     * In transportation problem the sum of network sources and network sinks equals to the number
-     * of nodes (no transshipment nodes) and the network doesn't contain transshipment sources and
-     * sinks. In essence, the network is a bipartite graph.
-     *
-     * @return {@code true} if the network specifies a transportation problem, {@code false}
-     *         otherwise.
-     */
-    private boolean transportationProblemCondition()
-    {
-        return sourceNum + sinkNum == nodeNum && transshipSourceNum == 0 && transshipSinkNum == 0;
-    }
-
-    /**
-     * Checks if the <it>transportation</it> network is a bipartite matching problem.
-     * <p>
-     * A transportation problem is a bipartite matching problem, if the bipartite graph partitions
-     * are of equal size, every source supply is equal to 1 (thus the demand of every sink is equal
-     * to 1 as well), and the capacity of every arc is 1.
-     *
-     * @return {@code true} if the transportation problem is a bipartite matching problem,
-     *         {@code false} otherwise.
-     */
-    private boolean assignmentProblemCondition()
-    {
-        return sourceNum == sinkNum && totalSupply == sourceNum && minCap == 1 && maxCap == 1;
     }
 
     /**
@@ -600,4 +573,33 @@ public class NetworkGeneratorConfig
         return percentWithInfCost;
     }
 
+        /**
+     * Checks if the network satisfies the transportation problem conditions.
+     * <p>
+     * In transportation problem the sum of network sources and network sinks equals to the number
+     * of nodes (no transshipment nodes) and the network doesn't contain transshipment sources and
+     * sinks. In essence, the network is a bipartite graph.
+     *
+     * @return {@code true} if the network specifies a transportation problem, {@code false}
+     *         otherwise.
+     */
+    private boolean transportationProblemCondition()
+    {
+        return sourceNum + sinkNum == nodeNum && transshipSourceNum == 0 && transshipSinkNum == 0;
+    }
+
+    /**
+     * Checks if the <it>transportation</it> network is a bipartite matching problem.
+     * <p>
+     * A transportation problem is a bipartite matching problem, if the bipartite graph partitions
+     * are of equal size, every source supply is equal to 1 (thus the demand of every sink is equal
+     * to 1 as well), and the capacity of every arc is 1.
+     *
+     * @return {@code true} if the transportation problem is a bipartite matching problem,
+     *         {@code false} otherwise.
+     */
+    private boolean assignmentProblemCondition()
+    {
+        return sourceNum == sinkNum && totalSupply == sourceNum && minCap == 1 && maxCap == 1;
+    }
 }
