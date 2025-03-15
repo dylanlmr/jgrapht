@@ -48,56 +48,56 @@ public class BarabasiAlbertForestGenerator<V, E>
 {
 
     private final Random rng;
-    private final int t;
-    private final int n;
+    private final int numberOfTrees;
+    private final int totalNodes;
 
     /**
      * Constructor
      * 
-     * @param t number of trees
-     * @param n final number of nodes
+     * @param numberOfTrees number of trees
+     * @param totalNodes final number of nodes
      * @throws IllegalArgumentException in case of invalid parameters
      */
-    public BarabasiAlbertForestGenerator(int t, int n)
+    public BarabasiAlbertForestGenerator(int numberOfTrees, int totalNodes)
     {
-        this(t, n, new Random());
+        this(numberOfTrees, totalNodes, new Random());
     }
 
     /**
      * Constructor
      * 
-     * @param t number of trees
-     * @param n final number of nodes
+     * @param numberOfTrees number of trees
+     * @param totalNodes final number of nodes
      * @param seed seed for the random number generator
      * @throws IllegalArgumentException in case of invalid parameters
      */
-    public BarabasiAlbertForestGenerator(int t, int n, long seed)
+    public BarabasiAlbertForestGenerator(int numberOfTrees, int totalNodes, long seed)
     {
-        this(t, n, new Random(seed));
+        this(numberOfTrees, totalNodes, new Random(seed));
     }
 
     /**
      * Constructor
      *
-     * @param t number of trees
-     * @param n final number of nodes
+     * @param numberOfTrees number of trees
+     * @param totalNodes final number of nodes
      * @param rng the random number generator to use
      * @throws IllegalArgumentException in case of invalid parameters
      */
-    public BarabasiAlbertForestGenerator(int t, int n, Random rng)
+    public BarabasiAlbertForestGenerator(int numberOfTrees, int totalNodes, Random rng)
     {
-        if (t < 1) {
-            throw new IllegalArgumentException("invalid number of trees (" + t + " < 1)");
+        if (numberOfTrees < 1) {
+            throw new IllegalArgumentException("invalid number of trees (" + numberOfTrees + " < 1)");
         }
 
-        this.t = t;
+        this.numberOfTrees = numberOfTrees;
 
-        if (n < t) {
+        if (totalNodes < numberOfTrees) {
             throw new IllegalArgumentException(
                 "total number of nodes must be at least equal to the number of trees");
         }
 
-        this.n = n;
+        this.totalNodes = totalNodes;
         this.rng = Objects.requireNonNull(rng, "Random number generator cannot be null");
     }
 
@@ -127,16 +127,16 @@ public class BarabasiAlbertForestGenerator<V, E>
         List<V> nodes = new ArrayList<>();
 
         /*
-         * Add t roots, one for each tree in the forest
+         * Add numberOfTrees roots, one for each tree in the forest
          */
-        for (int i = 0; i < t; i++) {
+        for (int i = 0; i < numberOfTrees; i++) {
             nodes.add(target.addVertex());
         }
 
         /*
          * Grow forest with preferential attachment
          */
-        for (int i = t; i < n; i++) {
+        for (int i = numberOfTrees; i < totalNodes; i++) {
             V v = target.addVertex();
             V u = nodes.get(rng.nextInt(nodes.size()));
 
