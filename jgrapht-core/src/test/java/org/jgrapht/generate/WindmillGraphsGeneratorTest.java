@@ -19,12 +19,14 @@ package org.jgrapht.generate;
 
 import org.jgrapht.*;
 import org.jgrapht.alg.shortestpath.*;
+import org.jgrapht.generate.named.generator.ButterflyGenerator;
 import org.jgrapht.graph.*;
 import org.jgrapht.util.*;
 import org.junit.jupiter.api.*;
 
 import java.util.*;
 
+import static org.jgrapht.generate.named.NamedGraphUtils.createAndGenerateGraph;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -91,7 +93,7 @@ public class WindmillGraphsGeneratorTest
     @Test
     public void testButterflyGraph()
     {
-        Graph<Integer, DefaultEdge> g = NamedGraphGenerator.butterflyGraph();
+        Graph<Integer, DefaultEdge> g = createAndGenerateGraph(new ButterflyGenerator<>());
         this.validateBasics(g, 5, 6, 1, 2, 3);
         this.verifyVertexDegree(g, WindmillGraphsGenerator.Mode.DUTCHWINDMILL, 2, 3);
         assertTrue(GraphTests.isEulerian(g));

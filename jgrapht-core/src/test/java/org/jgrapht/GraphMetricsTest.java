@@ -31,9 +31,13 @@ import org.jgrapht.generate.CompleteGraphGenerator;
 import org.jgrapht.generate.GnpRandomGraphGenerator;
 import org.jgrapht.generate.GraphGenerator;
 import org.jgrapht.generate.GridGraphGenerator;
-import org.jgrapht.generate.NamedGraphGenerator;
+import org.jgrapht.generate.named.generator.DiamondGenerator;
+import org.jgrapht.generate.named.generator.GoldnerHararyGenerator;
+import org.jgrapht.generate.named.generator.NamedGraphGenerator;
 import org.jgrapht.generate.RingGraphGenerator;
 import org.jgrapht.generate.WheelGraphGenerator;
+import org.jgrapht.generate.named.generator.klein.Klein7RegularGenerator;
+import org.jgrapht.generate.named.generator.petersen.PetersenGenerator;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.DirectedMultigraph;
@@ -49,7 +53,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Tests for GraphMetrics
- * 
+ *
  * @author Joris Kinable
  * @author Alexandru Valeanu
  */
@@ -329,28 +333,31 @@ public class GraphMetricsTest
 
         // Named graphs
 
-        NamedGraphGenerator<Integer, DefaultEdge> gen = new NamedGraphGenerator<>();
+        NamedGraphGenerator<Integer, DefaultEdge> gen = new PetersenGenerator<>();
 
         graph.removeAllVertices(new HashSet<>(graph.vertexSet()));
-        gen.generatePetersenGraph(graph);
+        gen.generate(graph);
 
         assertEquals(0, GraphMetrics.getNumberOfTriangles(graph));
         assertEquals(0, naiveCountTriangles(graph));
 
+        gen = new DiamondGenerator<>();
         graph.removeAllVertices(new HashSet<>(graph.vertexSet()));
-        gen.generateDiamondGraph(graph);
+        gen.generate(graph);
 
         assertEquals(2, GraphMetrics.getNumberOfTriangles(graph));
         assertEquals(2, naiveCountTriangles(graph));
 
+        gen = new GoldnerHararyGenerator<>();
         graph.removeAllVertices(new HashSet<>(graph.vertexSet()));
-        gen.generateGoldnerHararyGraph(graph);
+        gen.generate(graph);
 
         assertEquals(25, GraphMetrics.getNumberOfTriangles(graph));
         assertEquals(25, naiveCountTriangles(graph));
 
+        gen = new Klein7RegularGenerator<>();
         graph.removeAllVertices(new HashSet<>(graph.vertexSet()));
-        gen.generateKlein7RegularGraph(graph);
+        gen.generate(graph);
 
         assertEquals(56, GraphMetrics.getNumberOfTriangles(graph));
         assertEquals(56, naiveCountTriangles(graph));

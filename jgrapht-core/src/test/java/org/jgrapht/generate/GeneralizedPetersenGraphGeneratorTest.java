@@ -19,6 +19,8 @@ package org.jgrapht.generate;
 
 import org.jgrapht.*;
 import org.jgrapht.alg.shortestpath.*;
+import org.jgrapht.generate.named.NamedGraphUtils;
+import org.jgrapht.generate.named.generator.petersen.*;
 import org.jgrapht.graph.*;
 import org.jgrapht.util.*;
 import org.junit.jupiter.api.*;
@@ -51,7 +53,10 @@ public class GeneralizedPetersenGraphGeneratorTest
     @Test
     public void testPetersenGraph()
     {
-        Graph<Integer, DefaultEdge> g = NamedGraphGenerator.petersenGraph();
+        Graph<Integer, DefaultEdge> g = NamedGraphUtils.createGraph();
+        new PetersenGenerator<Integer, DefaultEdge>()
+                .generate(g);
+
         this.validateBasics(g, 10, 15, 2, 2, 5);
         assertTrue(GraphTests.isCubic(g));
     }
@@ -59,7 +64,10 @@ public class GeneralizedPetersenGraphGeneratorTest
     @Test
     public void testDuererGraphGraph()
     {
-        Graph<Integer, DefaultEdge> g = NamedGraphGenerator.dürerGraph();
+        Graph<Integer, DefaultEdge> g = NamedGraphUtils.createGraph();
+        new DurerGenerator<Integer, DefaultEdge>()
+                .generate(g);
+
         this.validateBasics(g, 12, 18, 3, 4, 3);
         assertTrue(GraphTests.isCubic(g));
     }
@@ -67,7 +75,10 @@ public class GeneralizedPetersenGraphGeneratorTest
     @Test
     public void testDodecahedronGraphGraph()
     {
-        Graph<Integer, DefaultEdge> g = NamedGraphGenerator.dodecahedronGraph();
+        Graph<Integer, DefaultEdge> g = NamedGraphUtils.createGraph();
+        new DodecahedronGenerator<Integer, DefaultEdge>()
+                .generate(g);
+
         this.validateBasics(g, 20, 30, 5, 5, 5);
         assertTrue(GraphTests.isCubic(g));
     }
@@ -75,7 +86,10 @@ public class GeneralizedPetersenGraphGeneratorTest
     @Test
     public void testDesarguesGraphGraph()
     {
-        Graph<Integer, DefaultEdge> g = NamedGraphGenerator.desarguesGraph();
+        Graph<Integer, DefaultEdge> g = NamedGraphUtils.createGraph();
+        new DesarguesGenerator<Integer, DefaultEdge>()
+                .generate(g);
+
         this.validateBasics(g, 20, 30, 5, 5, 6);
         assertTrue(GraphTests.isCubic(g));
         assertTrue(GraphTests.isBipartite(g));
@@ -84,7 +98,10 @@ public class GeneralizedPetersenGraphGeneratorTest
     @Test
     public void testNauruGraphGraph()
     {
-        Graph<Integer, DefaultEdge> g = NamedGraphGenerator.nauruGraph();
+        Graph<Integer, DefaultEdge> g = NamedGraphUtils.createGraph();
+        new NauruGenerator<Integer, DefaultEdge>()
+                .generate(g);
+
         this.validateBasics(g, 24, 36, 4, 4, 6);
         assertTrue(GraphTests.isCubic(g));
         assertTrue(GraphTests.isBipartite(g));
@@ -93,7 +110,10 @@ public class GeneralizedPetersenGraphGeneratorTest
     @Test
     public void testMoebiusKantorGraph()
     {
-        Graph<Integer, DefaultEdge> g = NamedGraphGenerator.möbiusKantorGraph();
+        Graph<Integer, DefaultEdge> g = NamedGraphUtils.createGraph();
+        new MobiusKantorGenerator<Integer, DefaultEdge>()
+                .generate(g);
+
         this.validateBasics(g, 16, 24, 4, 4, 6);
         assertTrue(GraphTests.isCubic(g));
         assertTrue(GraphTests.isBipartite(g));

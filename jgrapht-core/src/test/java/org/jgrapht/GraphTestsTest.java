@@ -18,6 +18,9 @@
 package org.jgrapht;
 
 import org.jgrapht.generate.*;
+import org.jgrapht.generate.named.generator.ClawGenerator;
+import org.jgrapht.generate.named.generator.DoyleGenerator;
+import org.jgrapht.generate.named.generator.petersen.PetersenGenerator;
 import org.jgrapht.graph.*;
 import org.junit.jupiter.api.*;
 
@@ -25,6 +28,7 @@ import java.util.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.jgrapht.generate.named.NamedGraphUtils.createAndGenerateGraph;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -344,8 +348,12 @@ public class GraphTestsTest
     @Test
     public void testIsOverfull()
     {
-        assertFalse(GraphTests.isOverfull(NamedGraphGenerator.clawGraph()));
-        assertTrue(GraphTests.isOverfull(NamedGraphGenerator.doyleGraph()));
+        Graph<Integer, DefaultEdge> g = createAndGenerateGraph(
+                new ClawGenerator<>());
+        assertFalse(GraphTests.isOverfull(g));
+
+        g = createAndGenerateGraph(new DoyleGenerator<>());
+        assertTrue(GraphTests.isOverfull(g));
 
         Graph<Integer, DefaultEdge> k6 = GraphTestsUtils.createPseudograph();
         CompleteGraphGenerator<Integer, DefaultEdge> gen = new CompleteGraphGenerator<>(6);
@@ -361,8 +369,11 @@ public class GraphTestsTest
     @Test
     public void isSplit1()
     {
-        assertFalse(GraphTests.isSplit(NamedGraphGenerator.petersenGraph()));
-        Graph<Integer, DefaultEdge> g = new Pseudograph<>(DefaultEdge.class);
+        Graph<Integer, DefaultEdge> g = createAndGenerateGraph(
+                new PetersenGenerator<>());
+        assertFalse(GraphTests.isSplit(g));
+
+        g = new Pseudograph<>(DefaultEdge.class);
         assertFalse(GraphTests.isSplit(g));
         g.addVertex(0);
         assertTrue(GraphTests.isSplit(g));
@@ -407,7 +418,9 @@ public class GraphTestsTest
     @Test
     public void testIsCubic()
     {
-        assertTrue(GraphTests.isCubic(NamedGraphGenerator.petersenGraph()));
+        Graph<Integer, DefaultEdge> g = createAndGenerateGraph(
+                new PetersenGenerator<>());
+        assertTrue(GraphTests.isCubic(g));
         Graph<Integer, DefaultEdge> triangle = new SimpleGraph<>(DefaultEdge.class);
         Graphs.addEdgeWithVertices(triangle, 1, 2);
         Graphs.addEdgeWithVertices(triangle, 2, 3);

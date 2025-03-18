@@ -18,7 +18,12 @@
 package org.jgrapht.alg.cycle;
 
 import org.jgrapht.*;
-import org.jgrapht.generate.*;
+import org.jgrapht.generate.named.NamedGraphUtils;
+import org.jgrapht.generate.named.generator.BuckyBallGenerator;
+import org.jgrapht.generate.named.generator.GossetGenerator;
+import org.jgrapht.generate.named.generator.SchlafliGenerator;
+import org.jgrapht.generate.named.generator.horton.EllinghamHorton78Generator;
+import org.jgrapht.generate.named.generator.klein.Klein3RegularGenerator;
 import org.jgrapht.graph.*;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -223,8 +228,10 @@ public class ChordalityInspectorTest
     @Test
     public void testIsChordal8()
     {
-        Graph<Integer, DefaultEdge> ellinghamHorton78 =
-            NamedGraphGenerator.ellinghamHorton78Graph();
+        Graph<Integer, DefaultEdge> ellinghamHorton78 = NamedGraphUtils.createGraph();
+        new EllinghamHorton78Generator<Integer, DefaultEdge>()
+                .generate(ellinghamHorton78);
+
         ChordalityInspector<Integer, DefaultEdge> inspector =
             new ChordalityInspector<>(ellinghamHorton78);
         assertFalse(inspector.isChordal());
@@ -237,7 +244,10 @@ public class ChordalityInspectorTest
     @Test
     public void testIsChordal9()
     {
-        Graph<Integer, DefaultEdge> gosset = NamedGraphGenerator.gossetGraph();
+        Graph<Integer, DefaultEdge> gosset = NamedGraphUtils.createGraph();
+        new GossetGenerator<Integer, DefaultEdge>()
+                .generate(gosset);
+
         ChordalityInspector<Integer, DefaultEdge> inspector = new ChordalityInspector<>(gosset);
         assertFalse(inspector.isChordal());
         assertIsHole(gosset, inspector.getHole());
@@ -249,7 +259,10 @@ public class ChordalityInspectorTest
     @Test
     public void testIsChordal10()
     {
-        Graph<Integer, DefaultEdge> klein = NamedGraphGenerator.klein3RegularGraph();
+        Graph<Integer, DefaultEdge> klein = NamedGraphUtils.createGraph();
+        new Klein3RegularGenerator<Integer, DefaultEdge>()
+                .generate(klein);
+
         ChordalityInspector<Integer, DefaultEdge> inspector = new ChordalityInspector<>(klein);
         assertFalse(inspector.isChordal());
         assertIsHole(klein, inspector.getHole());
@@ -261,7 +274,10 @@ public class ChordalityInspectorTest
     @Test
     public void testIsChordal11()
     {
-        Graph<Integer, DefaultEdge> schlaefli = NamedGraphGenerator.schläfliGraph();
+        Graph<Integer, DefaultEdge> schlaefli = NamedGraphUtils.createGraph();
+        new SchlafliGenerator<Integer, DefaultEdge>()
+                .generate(schlaefli);
+
         ChordalityInspector<Integer, DefaultEdge> inspector = new ChordalityInspector<>(schlaefli);
         assertFalse(inspector.isChordal());
         assertIsHole(schlaefli, inspector.getHole());
@@ -270,7 +286,10 @@ public class ChordalityInspectorTest
     @Test
     public void testIsChordal12()
     {
-        Graph<Integer, DefaultEdge> buckyBall = NamedGraphGenerator.buckyBallGraph();
+        Graph<Integer, DefaultEdge> buckyBall = NamedGraphUtils.createGraph();
+        new BuckyBallGenerator<Integer, DefaultEdge>()
+                .generate(buckyBall);
+
         ChordalityInspector<Integer, DefaultEdge> inspector = new ChordalityInspector<>(buckyBall);
         assertFalse(inspector.isChordal());
         assertIsHole(buckyBall, inspector.getHole());
