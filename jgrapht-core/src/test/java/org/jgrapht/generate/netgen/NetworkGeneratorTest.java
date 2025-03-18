@@ -23,6 +23,8 @@ import org.jgrapht.alg.flow.mincost.MinimumCostFlowProblem;
 import org.jgrapht.alg.interfaces.MatchingAlgorithm;
 import org.jgrapht.alg.interfaces.MaximumFlowAlgorithm;
 import org.jgrapht.alg.matching.HopcroftKarpMaximumCardinalityBipartiteMatching;
+import org.jgrapht.generate.netgen.problem.BipartiteMatchingProblem;
+import org.jgrapht.generate.netgen.problem.MaximumFlowProblem;
 import org.jgrapht.graph.AsUndirectedGraph;
 import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultDirectedWeightedGraph;
@@ -159,7 +161,7 @@ public class NetworkGeneratorTest
     }
 
     private static <V, E> void assertBipartiteMatchingProblemsAreEqual(
-        BipartiteMatchingProblem<V, E> firstProblem, BipartiteMatchingProblem<V, E> secondProblem)
+            BipartiteMatchingProblem<V, E> firstProblem, BipartiteMatchingProblem<V, E> secondProblem)
     {
         Graph<V, E> firstGraph = firstProblem.getGraph();
         Graph<V, E> secondGraph = secondProblem.getGraph();
@@ -174,7 +176,7 @@ public class NetworkGeneratorTest
     }
 
     private static <V, E> void assertMaxFlowProblemsAreEqual(
-        MaximumFlowProblem<V, E> firstProblem, MaximumFlowProblem<V, E> secondProblem)
+            MaximumFlowProblem<V, E> firstProblem, MaximumFlowProblem<V, E> secondProblem)
     {
         Graph<V, E> firstGraph = firstProblem.getGraph();
         Graph<V, E> secondGraph = secondProblem.getGraph();

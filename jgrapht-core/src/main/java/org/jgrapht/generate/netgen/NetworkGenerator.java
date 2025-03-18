@@ -21,7 +21,10 @@ import org.jgrapht.Graph;
 import org.jgrapht.GraphTests;
 import org.jgrapht.Graphs;
 import org.jgrapht.alg.flow.mincost.MinimumCostFlowProblem;
-import org.jgrapht.alg.util.Pair;
+import org.jgrapht.generate.netgen.problem.BipartiteMatchingProblem;
+import org.jgrapht.generate.netgen.problem.BipartiteMatchingProblemBase;
+import org.jgrapht.generate.netgen.problem.MaximumFlowProblem;
+import org.jgrapht.generate.netgen.problem.MaximumFlowProblemBase;
 import org.jgrapht.util.CollectionUtil;
 import org.jgrapht.util.ElementsSequenceGenerator;
 
@@ -281,7 +284,7 @@ public class NetworkGenerator<V, E>
 
         generate(graph);
 
-        return new BipartiteMatchingProblem.BipartiteMatchingProblemImpl<>(
+        return new BipartiteMatchingProblemBase<>(
             graph, new HashSet<>(networkInfo.getSources()), new HashSet<>(networkInfo.getSinks()),
             e -> (double) costMap.get(e), config.isCostWeighted());
     }
@@ -306,7 +309,7 @@ public class NetworkGenerator<V, E>
         generate(graph);
 
         // calling network info to get unmodifiable source and sink lists
-        return new MaximumFlowProblem.MaximumFlowProblemImpl<>(
+        return new MaximumFlowProblemBase<>(
             graph, new HashSet<>(networkInfo.getSources()), new HashSet<>(networkInfo.getSinks()),
             e -> (double) capacityMap.get(e));
     }
