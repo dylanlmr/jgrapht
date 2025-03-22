@@ -48,6 +48,16 @@ public class Distributor<K>
      * Upper bounds.
      */
     private final List<Function<K, Integer>> upperBounds;
+    
+    /**
+     * Default lower bound value.
+     */
+    private static final int DEFAULT_LOWER_BOUND = 0;
+    
+    /**
+     * Default upper bound value.
+     */
+    private static final int DEFAULT_UPPER_BOUND = Integer.MAX_VALUE;
 
     /**
      * Creates a Distributor using random seed.
@@ -109,7 +119,7 @@ public class Distributor<K>
     {
         List<Integer> keyLowerBounds = new ArrayList<>(keys.size());
         for (K key : keys) {
-            int lowerBound = 0;
+            int lowerBound = DEFAULT_LOWER_BOUND;
             for (Function<K, Integer> lowerBoundFunction : lowerBounds) {
                 lowerBound = Math.max(lowerBound, lowerBoundFunction.apply(key));
             }
@@ -129,7 +139,7 @@ public class Distributor<K>
     {
         List<Integer> keyUpperBounds = new ArrayList<>(keys.size());
         for (K key : keys) {
-            int upperBound = Integer.MAX_VALUE;
+            int upperBound = DEFAULT_UPPER_BOUND;
             for (Function<K, Integer> upperBoundFunction : upperBounds) {
                 upperBound = Math.min(upperBound, upperBoundFunction.apply(key));
             }
