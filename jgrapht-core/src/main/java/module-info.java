@@ -65,6 +65,12 @@ module org.jgrapht.core
     exports org.jgrapht.traverse;
     exports org.jgrapht.util;
     exports org.jgrapht.generate.netgen.problem;
+    exports org.jgrapht.generate.named;
+    exports org.jgrapht.generate.named.generator.horton;
+    exports org.jgrapht.generate.named.generator.blanusa;
+    exports org.jgrapht.generate.named.generator.klein;
+    exports org.jgrapht.generate.named.generator.petersen;
+    exports org.jgrapht.generate.named.generator;
 
     requires transitive org.jheaps;
     requires transitive org.apfloat;
