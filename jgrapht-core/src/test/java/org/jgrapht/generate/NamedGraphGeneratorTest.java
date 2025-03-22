@@ -33,8 +33,7 @@ import org.junit.jupiter.api.*;
 import java.util.*;
 
 import static org.jgrapht.generate.named.NamedGraphUtils.createAndGenerateGraph;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests for NamedGraphGenerator
@@ -336,6 +335,15 @@ public class NamedGraphGeneratorTest
         Graph<Integer, DefaultEdge> g = createAndGenerateGraph(new ThomsenGenerator<>());
         this.validateBasics(g, 6, 9, 2, 2, 4);
         assertTrue(GraphTests.isBipartite(g));
+    }
+
+    @Test
+    void testZacharysKarateClubGraph()
+    {
+        Graph<Integer, DefaultEdge> g = createAndGenerateGraph(new ZacharysKarateClubGenerator<>());
+        assertEquals(34, g.vertexSet().size(), "Unexpected number of vertices");
+        assertEquals(78, g.edgeSet().size(), "Unexpected number of edges");
+        this.validateBasics(g, 34, 78, 3, 5, 3);
     }
 
     private <V, E> void validateBasics(
